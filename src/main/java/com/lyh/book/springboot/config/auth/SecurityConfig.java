@@ -8,13 +8,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
@@ -23,11 +24,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .anyRequest().authenticated()
                 .and()
                     .logout()
-                         .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/")
                 .and()
                     .oauth2Login()
                         .userInfoEndpoint()
                             .userService(customOAuth2UserService);
     }
-
 }
