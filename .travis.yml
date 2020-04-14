@@ -20,6 +20,8 @@ before_deploy:
   - mv lyh-springboot-webservice.zip deploy/lyh-springboot-webservice.zip
 
 deploy:
+  - before_install:
+      - chmod +x gradlew
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
